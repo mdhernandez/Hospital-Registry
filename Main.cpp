@@ -7,13 +7,12 @@
 #include<string>
 #include "Functions.h"
 
-using namespace std;
 
 int main() {
 	const int MAX_SIZE = 100;//stores maximum size for the department, staff, and patient arrays
 	int choice, subchoice;//used to store user choices in the main menu and submenus
-	ifstream inFiled, inFilep, inFiles;//used to perform operations on input files
-	ofstream outFileD, outFileP, outFileS;//used to perform operations on output files
+	std::ifstream inFiled, inFilep, inFiles;//used to perform operations on input files
+	std::ofstream outFileD, outFileP, outFileS;//used to perform operations on output files
 
 	Department departmentList[MAX_SIZE];//stores information on up to the MAX_SIZE of departments
 	Staff staffList[MAX_SIZE];//stores information on up to the MAX_SIZE of staff members
@@ -26,27 +25,27 @@ int main() {
 
 	welcomeScreen();//displays welcome screen for program
 	displayFirstMenu();//displays the main menu for the first time
-	cin >> choice;//takes in user choice for the first time
+	std::cin >> choice;//takes in user choice for the first time
 
 	while (choice != 4) {
-		cout << endl;//formatting
+		std::cout << std::endl;//formatting
 		menuSelection(choice);
 		if (choice < 4 && choice > 0)
-		cin >> subchoice;
-		cout << endl;//formatting
+			std::cin >> subchoice;
+		std::cout << std::endl;//formatting
 		while(subchoice != 6){
 			subMenusFunction(choice, subchoice, departmentList, staffList, patientList, numOfDepartments, numOfStaff, numOfPatients);
 			menuSelection(choice);
-			cin >> subchoice;
+			std::cin >> subchoice;
 		}
 		displayFirstMenu();
-		cin >> choice;
+		std::cin >> choice;
 		
 	} //main menu loop with nested submenus
 
 	outFileOperations(outFileD, outFileS, outFileP, departmentList, staffList, patientList, numOfDepartments, numOfStaff, numOfPatients);//outfile operations
 
-	cout << "Thank you for using the program! Goodbye!" << endl;//closing message
-	system("pause");
+	std::cout << "Thank you for using the program! Goodbye!" << std::endl;//closing message
+	
 	return 0;
 }
