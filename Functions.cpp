@@ -7,19 +7,18 @@
 #include<fstream>
 #include "Functions.h"
 
-using namespace std;
 
-void Department::readFromFile(ifstream& inFile) {
+void Department::readFromFile(std::ifstream& inFile) {
 	deptName = readCharArrayFromFiletoString(inFile); 
 	inFile >> ID;
 	inFile.ignore();
 }
 
-void Department::printToFile(ofstream& outFile) {
+void Department::printToFile(std::ofstream& outFile) {
 	outFile << deptName << "," << ID;
 }
 
-void Department::setDeptName(string departmentN) {
+void Department::setDeptName(std::string departmentN) {
 	deptName = departmentN;
 }
 
@@ -31,25 +30,25 @@ int Department::getDeptID() const {
 	return ID;
 }
 
-string Department::getDeptName() const {
+std::string Department::getDeptName() const {
 	return deptName;
 }
 
 void Department::printDepartment() const {//tentative
-	cout << "Department Name: " << deptName << endl;
-	cout << "Department ID: " << ID << endl;
+	std::cout << "Department Name: " << deptName << std::endl;
+	std::cout << "Department ID: " << ID << std::endl;
 }
 
 void listAllDepartments(Department departmentObject[], int numOfDepts) {
 	
 	if (numOfDepts == 0) {
-		cout << "There are no departments listed in the registry." << endl << endl;
+		std::cout << "There are no departments listed in the registry." << std::endl << std::endl;
 	}
 	else {
 		departmentBubbleSort(departmentObject, numOfDepts);
 		for (int i = 0; i < numOfDepts; i++) {
 			departmentObject[i].printDepartment();
-			cout << endl;
+			std::cout << std::endl;
 		}
 	}
 }
@@ -72,7 +71,7 @@ int Staff::getStaffID() const {
 }
 
 void Staff::printStaff() const{
-	string jobType = "";
+	std::string jobType = "";
 	switch (staffType) {
 	case 'D':
 		jobType = "Doctor";
@@ -84,12 +83,12 @@ void Staff::printStaff() const{
 		jobType = "Administrator";
 	}
 
-	cout << "Name: " << jobType << " " << getFirstName() << " " << getLastName() << endl;
-	cout << "Staff ID: " << staffID << endl;
-	cout << "Department ID: " << staffDept.getDeptID() << endl;
-	cout << "Gender: " << getGender() << endl;
-	cout << "Birthday: " << getBirthMonth() << "/" << getBirthDay() << "/"
-		<< getBirthYear() << endl;
+	std::cout << "Name: " << jobType << " " << getFirstName() << " " << getLastName() << std::endl;
+	std::cout << "Staff ID: " << staffID << std::endl;
+	std::cout << "Department ID: " << staffDept.getDeptID() << std::endl;
+	std::cout << "Gender: " << getGender() << std::endl;
+	std::cout << "Birthday: " << getBirthMonth() << "/" << getBirthDay() << "/"
+		<< getBirthYear() << std::endl;
 
 	int numberOfPhones;
 
@@ -100,10 +99,10 @@ void Staff::printStaff() const{
 
 
 
-	cout << "Phone Number: ";
+	std::cout << "Phone Number: ";
 
 	for (int i = 0; i < numberOfPhones; i++) {
-		cout << staffContact.phoneNo[i] << endl;
+		std::cout << staffContact.phoneNo[i] << std::endl;
 	}
 	int numberOfEmails;
 
@@ -112,27 +111,27 @@ void Staff::printStaff() const{
 	else
 		numberOfEmails = 1;
 
-	cout << "E-mail: ";
+	std::cout << "E-mail: ";
 	for (int i = 0; i < numberOfEmails; i++) {
-		cout << staffContact.email[i] << endl;
+		std::cout << staffContact.email[i] << std::endl;
 	}
 }
 
 void listAllStaff(Staff staffObject[], int numOfStaff) {
 	if (numOfStaff == 0) {
-		cout << "There are no staff members listed in the registry." << endl << endl;
+		std::cout << "There are no staff members listed in the registry." << std::endl << std::endl;
 	}
 	else {
 		staffBubbleSort(staffObject, numOfStaff);
 
 		for (int i = 0; i < numOfStaff; i++) {
 			staffObject[i].printStaff();
-			cout << endl;
+			std::cout << std::endl;
 		}
 	}
 }
 
-void Staff::readFromFile(ifstream& inFile) {
+void Staff::readFromFile(std::ifstream& inFile) {
 	char c;//removes commas
 	char gender;
 	int birthD, birthM, birthY;
@@ -155,7 +154,7 @@ void Staff::readFromFile(ifstream& inFile) {
 	}
 }
 
-void Staff::printToFile(ofstream& outFile) {
+void Staff::printToFile(std::ofstream& outFile) {
 	
 	outFile << staffType << ",";
 	outFile << getFirstName() << "," << getLastName() << ",";
@@ -172,7 +171,7 @@ char Staff::getStaffType() const {
 	return staffType;
 }
 
-Staff::Staff(int id, int deptID, char gen, int sDay, int sMonth, int sYear, int sEmailAm, int sPhoneAmount, string sEmail, string sPhoneNo, char sStaffType) {
+Staff::Staff(int id, int deptID, char gen, int sDay, int sMonth, int sYear, int sEmailAm, int sPhoneAmount, std::string sEmail, std::string sPhoneNo, char sStaffType) {
 	staffID = id;
 	staffDept.setDeptID(deptID);
 	setGender(gen);
@@ -202,33 +201,33 @@ int Patient::getPatientID() const {
 
 void Patient::printPatientInfo() const{//List All 
 
-	cout << "Name: " << getFirstName() << " " << getLastName() << endl;
-	cout << "Patient ID: " << patientID << endl;
-	cout << "Gender: " << getGender() << endl;
-	cout << "Birthday: " << getBirthMonth() << "/" << getBirthDay() << "/"
-		<< getBirthYear() << endl;
-	cout << "Phone Number: "<< patientContact.phoneNo << endl;
-	cout << "Email: " << patientContact.email << endl;
-	cout << "Address: " << patientContact.patientAddress.addNo << " " << patientContact.patientAddress.streetName << endl;
-	cout << patientContact.patientAddress.cityName << ", " << patientContact.patientAddress.stateName << " " 
-		<< patientContact.patientAddress.zipCode << endl;
+	std::cout << "Name: " << getFirstName() << " " << getLastName() << std::endl;
+	std::cout << "Patient ID: " << patientID << std::endl;
+	std::cout << "Gender: " << getGender() << std::endl;
+	std::cout << "Birthday: " << getBirthMonth() << "/" << getBirthDay() << "/"
+		<< getBirthYear() << std::endl;
+	std::cout << "Phone Number: "<< patientContact.phoneNo << std::endl;
+	std::cout << "Email: " << patientContact.email << std::endl;
+	std::cout << "Address: " << patientContact.patientAddress.addNo << " " << patientContact.patientAddress.streetName << std::endl;
+	std::cout << patientContact.patientAddress.cityName << ", " << patientContact.patientAddress.stateName << " "
+		<< patientContact.patientAddress.zipCode << std::endl;
 }
 
 void listAllPatients(Patient patientObject[], int numOfPatients) {
 	if (numOfPatients == 0) {
-		cout << "There are no patients listed in the registry." << endl << endl;
+		std::cout << "There are no patients listed in the registry." << std::endl << std::endl;
 	}
 	else {
 		patientBubbleSort(patientObject, numOfPatients);
 
 		for (int i = 0; i < numOfPatients; i++) {
 			patientObject[i].printPatientInfo();
-			cout << endl;
+			std::cout << std::endl;
 		}
 	}
 }
 
-Patient::Patient(int pID, int sID, char pGender, int pDay, int pMonth, int pYear, string pFirst, string pLast, string pEmail, string pPhoneNo, int pAddressNo, string pStreetName, string pCityName, string pStateName, int pZipCode)
+Patient::Patient(int pID, int sID, char pGender, int pDay, int pMonth, int pYear, std::string pFirst, std::string pLast, std::string pEmail, std::string pPhoneNo, int pAddressNo, std::string pStreetName, std::string pCityName, std::string pStateName, int pZipCode)
 	:Person(pGender, pMonth, pDay, pYear, pFirst, pLast)
 {
 	patientID = pID;
@@ -242,7 +241,7 @@ Patient::Patient(int pID, int sID, char pGender, int pDay, int pMonth, int pYear
 	patientContact.patientAddress.zipCode = pZipCode;
 }
 
-void Patient::readFromFile(ifstream& inFile) {
+void Patient::readFromFile(std::ifstream& inFile) {
 	char c;//eliminates commas
 	char gender;
 	int birthDay, birthMonth, birthYear;
@@ -266,7 +265,7 @@ void Patient::readFromFile(ifstream& inFile) {
 	}
 }
 
-void Patient::printToFile(ofstream& outFile) {
+void Patient::printToFile(std::ofstream& outFile) {
 	outFile << getFirstName() << "," << getLastName() << ",";
 	outFile << patientID << ",";
 	outFile << getAttendingID() << ",";
@@ -280,7 +279,7 @@ void Patient::printToFile(ofstream& outFile) {
 	outFile << patientContact.email;
 }
 
-void Patient::setAddress(int houseNum, string street, string city, string stateInit, int zipNum) {
+void Patient::setAddress(int houseNum, std::string street, std::string city, std::string stateInit, int zipNum) {
 	patientContact.patientAddress.addNo = houseNum;
 	patientContact.patientAddress.streetName = street;
 	patientContact.patientAddress.cityName = city;
@@ -288,11 +287,11 @@ void Patient::setAddress(int houseNum, string street, string city, string stateI
 	patientContact.patientAddress.zipCode = zipNum;
 }
 
-void Patient::setPhoneNum(string phone) {
+void Patient::setPhoneNum(std::string phone) {
 	patientContact.phoneNo = phone;
 }
 
-void Patient::setEmail(string pEmail) {
+void Patient::setEmail(std::string pEmail) {
 	patientContact.email = pEmail;
 }
 
@@ -300,11 +299,11 @@ void Patient::setPatientContactInfo(PatientContactInfo newPatientContact) {
 	patientContact = newPatientContact;
 }
 
-void Person::setFirstName(string personFirstName) {
+void Person::setFirstName(std::string personFirstName) {
 	firstName = personFirstName;
 }
 
-void Person::setLastName(string personLastName) {
+void Person::setLastName(std::string personLastName) {
 	lastName = personLastName;
 }
 
@@ -340,26 +339,26 @@ char Person::getGender() const {
 	return gender;
 }
 
-string Person::getFirstName() const {
+std::string Person::getFirstName() const {
 	return firstName;
 }
 
-string Person::getLastName() const {
+std::string Person::getLastName() const {
 	return lastName;
 }
 
 void displayFirstMenu() {
-	cout << "1. Department menu" << endl;
-	cout << "2. Staff menu" << endl;
-	cout << "3. Patient menu" << endl;
-	cout << "4. Exit" << endl;
+	std::cout << "1. Department menu" << std::endl;
+	std::cout << "2. Staff menu" << std::endl;
+	std::cout << "3. Patient menu" << std::endl;
+	std::cout << "4. Exit" << std::endl;
 }
 
 void welcomeScreen() {
-	cout << "Welcome to the hospital menu program!" << endl << endl;
-	cout << "The purpose of this program is to store and present information about your hospital." << endl;
-	cout << "Below is the main menu, Enter 1-3 to select one of the options to be taken to a different section of the program." << endl
-		<<"To exit the program from the main menu Enter the number 4" << endl << endl;
+	std::cout << "Welcome to the hospital menu program!" << std::endl << std::endl;
+	std::cout << "The purpose of this program is to store and present information about your hospital." << std::endl;
+	std::cout << "Below is the main menu, Enter 1-3 to select one of the options to be taken to a different section of the program." << std::endl
+		<<"To exit the program from the main menu Enter the number 4" << std::endl << std::endl;
 }
 
 void menuSelection(int theChoice){
@@ -374,33 +373,33 @@ void menuSelection(int theChoice){
 		displayPatientSubMenu();
 		break;
 	default:
-		cout << "Invalid Selection. Try again." << endl;
+		std::cout << "Invalid Selection. Try again." << std::endl;
 		break;
 	}
 }
 
 void displayDeptSubMenu() {
-	cout << "1. List all departments" << endl;
-	cout << "2. Add a department" << endl;
-	cout << "3. Search for a department" << endl;
-	cout << "4. Edit a department's information" << endl;
-	cout << "6. Return to main menu" << endl;
+	std::cout << "1. List all departments" << std::endl;
+	std::cout << "2. Add a department" << std::endl;
+	std::cout << "3. Search for a department" << std::endl;
+	std::cout << "4. Edit a department's information" << std::endl;
+	std::cout << "6. Return to main menu" << std::endl;
 }
 
 void displayStaffSubMenu() {
-	cout << "1. List all employees" << endl;
-	cout << "2. Add an employee" << endl;
-	cout << "3. Search for an employee" << endl;
-	cout << "4. Edit an employee's information" << endl;
-	cout << "6. Return to main menu" << endl;
+	std::cout << "1. List all employees" << std::endl;
+	std::cout << "2. Add an employee" << std::endl;
+	std::cout << "3. Search for an employee" << std::endl;
+	std::cout << "4. Edit an employee's information" << std::endl;
+	std::cout << "6. Return to main menu" << std::endl;
 }
 
 void displayPatientSubMenu() {
-	cout << "1. List all patients" << endl;
-	cout << "2. Add a patient" << endl;
-	cout << "3. Search for a patient" << endl;
-	cout << "4. Edit a patient's information" << endl;
-	cout << "6. Return to main menu" << endl;
+	std::cout << "1. List all patients" << std::endl;
+	std::cout << "2. Add a patient" << std::endl;
+	std::cout << "3. Search for a patient" << std::endl;
+	std::cout << "4. Edit a patient's information" << std::endl;
+	std::cout << "6. Return to main menu" << std::endl;
 }
 
 void subMenusFunction(int choice, int subchoice, Department departmentObject[], Staff staffObject[], Patient patientObject[], int &numOfDepts, int &numOfStaff, int &numOfPatients){
@@ -416,32 +415,32 @@ void subMenusFunction(int choice, int subchoice, Department departmentObject[], 
 			break;
 		case 2:
 			addADepartment(departmentObject, numOfDepts);
-			cout << endl;
+			std::cout << std::endl;
 			break;
 		case 3: {
-			cout << "Enter department ID: ";
-			cin >> newSearchID;
-			cout << endl;
+			std::cout << "Enter department ID: ";
+			std::cin >> newSearchID;
+			std::cout << std::endl;
 			bool isFound = searchDept(departmentObject, numOfDepts, idForPrint, newSearchID);
 			if (isFound) {
 				departmentObject[idForPrint].printDepartment();
-				cout << endl;
+				std::cout << std::endl;
 			}
 			else {
-				cout << "Department not found." << endl << endl;
+				std::cout << "Department not found." << std::endl << std::endl;
 			}
 			break;
 		}
 
 		case 4:
-			cout << "Enter the department ID or the department you wish to edit: ";
-			cin >> newSearchID;
-			cout << endl;
+			std::cout << "Enter the department ID or the department you wish to edit: ";
+			std::cin >> newSearchID;
+			std::cout << std::endl;
 
 			editDepartment(departmentObject, numOfDepts, newSearchID);
 			break;
 		default:
-			cout << "Invalid Selection. Please try again." << endl << endl;
+			std::cout << "Invalid Selection. Please try again." << std::endl << std::endl;
 		}
 		break;
 	case 2:
@@ -451,41 +450,41 @@ void subMenusFunction(int choice, int subchoice, Department departmentObject[], 
 			break;
 		case 2:
 			addAStaffMember(staffObject, departmentObject, numOfStaff, numOfDepts);
-			cout << endl;
+			std::cout << std::endl;
 			break;
 		case 3: {
-			cout << "Enter staff member ID: ";
-			cin >> newSearchID;
-			cout << endl;
+			std::cout << "Enter staff member ID: ";
+			std::cin >> newSearchID;
+			std::cout << std::endl;
 
 			bool isFound = searchStaffMember(staffObject, numOfStaff, idForPrint, newSearchID);
 			if (isFound) {
 				staffObject[idForPrint].printStaff();
-				cout << endl;
+				std::cout << std::endl;
 				int newDeptIndex = staffObject[idForPrint].staffDept.getDeptID();
 				bool isDeptFound = searchDept(departmentObject, numOfDepts, idForPrint, newDeptIndex);
 				if (isDeptFound) {
-					cout << "Department Information:" << endl << endl;
+					std::cout << "Department Information:" << std::endl << std::endl;
 					departmentObject[idForPrint].printDepartment();
-					cout << endl;
+					std::cout << std::endl;
 				}
 			}
 			else {
-				cout << "Staff member not found." << endl << endl;
+				std::cout << "Staff member not found." << std::endl << std::endl;
 			}
 			break;
 		}
 
 		case 4:
-			cout << "Enter the Staff ID of the staff member whose information you wish to edit: ";
-			cin >> newSearchID;
-			cout << endl;
+			std::cout << "Enter the Staff ID of the staff member whose information you wish to edit: ";
+			std::cin >> newSearchID;
+			std::cout << std::endl;
 
 			editStaffMember(staffObject, numOfStaff, newSearchID, departmentObject, numOfDepts);
 			break;
 			
 		default:
-			cout << "Invalid selection. Please try again." << endl << endl;
+			std::cout << "Invalid selection. Please try again." << std::endl << std::endl;
 			break;
 		}
 		break;
@@ -496,47 +495,47 @@ void subMenusFunction(int choice, int subchoice, Department departmentObject[], 
 			break;
 		case 2:
 			addAPatient(patientObject, staffObject, numOfPatients, numOfStaff);
-			cout << endl;
+			std::cout << std::endl;
 			break;
 		case 3: {
-			cout << "Enter Patient ID: ";
-			cin >> newSearchID;
-			cout << endl;
+			std::cout << "Enter Patient ID: ";
+			std::cin >> newSearchID;
+			std::cout << std::endl;
 
 			bool isFound = searchPatient(patientObject, numOfPatients, idForPrint, newSearchID);
 			if (isFound) {
 				patientObject[idForPrint].printPatientInfo();
-				cout << endl;
+				std::cout << std::endl;
 				int newDoctorID = patientObject[idForPrint].getAttendingID();
 				bool isDoctorFound = searchStaffMember(staffObject, numOfStaff, idForPrint, newDoctorID);
 				if (isDoctorFound) {
-					cout << "Attending Staff Member Information: " << endl << endl;
+					std::cout << "Attending Staff Member Information: " << std::endl << std::endl;
 					staffObject[idForPrint].printStaff();
-					cout << endl;
+					std::cout << std::endl;
 				}
 			}
 			else {
-				cout << "Patient not found." << endl << endl;
+				std::cout << "Patient not found." << std::endl << std::endl;
 			}
 
 			break;
 		}
 		case 4:
-			cout << "Enter the ID of the patient whose information you wish to edit: ";
-			cin >> newSearchID;
-			cout << endl;
+			std::cout << "Enter the ID of the patient whose information you wish to edit: ";
+			std::cin >> newSearchID;
+			std::cout << std::endl;
 
 			editPatient(patientObject, numOfPatients, newSearchID, staffObject, numOfStaff);
 			break;
 		default:
-			cout << "Invalid selection. Please try again." << endl << endl;
+			std::cout << "Invalid selection. Please try again." << std::endl << std::endl;
 		}
 		break;
 	}
 
 }
 
-string readCharArrayFromFiletoString(ifstream& inFile) {
+std::string readCharArrayFromFiletoString(std::ifstream& inFile) {
 	char c;
 	int characterCount = 0;
 	char name[100];
@@ -548,24 +547,24 @@ string readCharArrayFromFiletoString(ifstream& inFile) {
 		name[characterCount] = c;
 		characterCount++;
 	}
-	string nameChar(name, characterCount);
+	std::string nameChar(name, characterCount);
 	return nameChar;
 }
 
 void addADepartment(Department departmentObject[], int &departmentSize) {
-	string deptName;
+	std::string deptName;
 	int deptID;
 	
 
-	cout << "Enter the following information about the department you want to add." << endl;
-	cout << "Name: ";
-	cin.ignore();
-	getline(cin, deptName);
+	std::cout << "Enter the following information about the department you want to add." << std::endl;
+	std::cout << "Name: ";
+	std::cin.ignore();
+	getline(std::cin, deptName);
 	departmentObject[departmentSize].setDeptName(deptName);
-	cout << endl;
+	std::cout << std::endl;
 
-	cout << "ID: ";
-	cin >> deptID;
+	std::cout << "ID: ";
+	std::cin >> deptID;
 	departmentObject[departmentSize].setDeptID(deptID);
 
 	departmentSize++;
@@ -576,90 +575,90 @@ void addAStaffMember(Staff staffObject[], Department departmentObject[], int &st
 	int newDeptID;
 	char newStaffType;
 	
-	cout << "Enter the following information about the staff member you wish to add." << endl;
+	std::cout << "Enter the following information about the staff member you wish to add." << std::endl;
 	
-	cout << "Staff ID: ";
-	cin >> newStaffID;
-	cout << endl;
+	std::cout << "Staff ID: ";
+	std::cin >> newStaffID;
+	std::cout << std::endl;
 
 	staffObject[staffSize].setStaffID(newStaffID);
 
-	cout << "Staff Type(enter A for administrator, D for doctor, or N for nurse): ";
-	cin >> newStaffType;
-	cout << endl;
+	std::cout << "Staff Type(enter A for administrator, D for doctor, or N for nurse): ";
+	std::cin >> newStaffType;
+	std::cout << std::endl;
 
-	cout << "Department ID: ";
-	cin >> newDeptID;
-	cout << endl;
+	std::cout << "Department ID: ";
+	std::cin >> newDeptID;
+	std::cout << std::endl;
 
 	staffObject[staffSize].staffDept.setDeptID(newDeptID);
 
 	while (!doesDeptIdExist(departmentObject, staffObject[staffSize].staffDept.getDeptID(), numOfDepartments)) {
-		cout << "Invalid Department ID. Please reenter an existing Department ID: ";
-		cin >> newDeptID;
-		cout << endl;
+		std::cout << "Invalid Department ID. Please reenter an existing Department ID: ";
+		std::cin >> newDeptID;
+		std::cout << std::endl;
 		staffObject[staffSize].staffDept.setDeptID(newDeptID);
 	}
-	string fName;
-	cout << "First Name: ";
-	cin >> fName;
-	cout << endl;
+	std::string fName;
+	std::cout << "First Name: ";
+	std::cin >> fName;
+	std::cout << std::endl;
 
-	string lName;
-	cout << "Last Name: ";
-	cin >> lName;
-	cout << endl;
+	std::string lName;
+	std::cout << "Last Name: ";
+	std::cin >> lName;
+	std::cout << std::endl;
 
 	char gender;
-	cout << "Gender (M or F): ";
-	cin >> gender;
-	cout << endl;
+	std::cout << "Gender (M or F): ";
+	std::cin >> gender;
+	std::cout << std::endl;
 
 	int bDay, bMonth, bYear;
 
-	cout << "Birthday (month day year) seperated by spaces: "; 
-	cin >> bMonth >> bDay >> bYear;
-	cout << endl;
+	std::cout << "Birthday (month day year) seperated by spaces: ";
+	std::cin >> bMonth >> bDay >> bYear;
+	std::cout << std::endl;
 
-	cout << "How many phone numbers would you like to store?: ";
+	std::cout << "How many phone numbers would you like to store?: ";
 	int phoneNumAmount;
-	cin >> phoneNumAmount;
+	std::cin >> phoneNumAmount;
 
 	staffObject[staffSize].staffContact.setNumofPhones(phoneNumAmount);
 
-	string newNumber = "";
-	cin.ignore();
+	std::string newNumber = "";
+	std::cin.ignore();
 
 	for (int i = 0; i < staffObject[staffSize].staffContact.getPhoneNoAmount(); i++) {
 		if(i == 0)
-			cout << "Enter Phone number: ";
+			std::cout << "Enter Phone number: ";
 		else {
-			cout << "Enter Phone number #" << i + 1 << ": ";
+			std::cout << "Enter Phone number #" << i + 1 << ": ";
 		}
 
 		
-		getline(cin, newNumber);
-		cout << endl;
+		getline(std::cin, newNumber);
+		std::cout << std::endl;
 
 		staffObject[staffSize].staffContact.setANumber(newNumber, i);
 	}
-	cout << "How many E-mail addresses would you like to store?: ";
+	std::cout << "How many E-mail addresses would you like to store?: ";
 	int howManyEmail;
-	cin >> howManyEmail;
+	std::cin >> howManyEmail;
 
 	staffObject[staffSize].staffContact.setNumOfEmail(howManyEmail);
-	string newEmail = "";
-	cin.ignore();
+	std::string newEmail = "";
+	std::cin.ignore();
 	for (int i = 0; i < staffObject[staffSize].staffContact.getEmailAmount(); i++) {
 		
 		if(i == 0)
-		cout << "E-mail: ";
+			std::cout << "E-mail: ";
 		else {
-			cout << "E-mail #" << i + 1 << ": ";
+			std::cout << "E-mail #" << i + 1 << ": ";
 		}
 		
-		getline(cin, newEmail);
-		cout << endl;
+		getline(std::cin, newEmail);
+		std::cout << std::endl;
 		staffObject[staffSize].staffContact.setAnEmail(newEmail, i);
 	} 
 
@@ -680,76 +679,76 @@ void addAPatient(Patient patientObject[], Staff staffObject[], int &patientIndex
 	int newPatientID;
 	int patientAttendingStaffID;
 
-	cout << "Enter the following information about the patient you wish to add." << endl;
+	std::cout << "Enter the following information about the patient you wish to add." << std::endl;
 
-	string fName;
-	cout << "First Name: ";
-	cin >> fName;
-	cout << endl;
+	std::string fName;
+	std::cout << "First Name: ";
+	std::cin >> fName;
+	std::cout << std::endl;
 
-	string lName;
-	cout << "Last Name: ";
-	cin >> lName;
-	cout << endl;
+	std::string lName;
+	std::cout << "Last Name: ";
+	std::cin >> lName;
+	std::cout << std::endl;
 
-	cout << "Patient ID: ";
-	cin >> newPatientID;
-	cout << endl;
+	std::cout << "Patient ID: ";
+	std::cin >> newPatientID;
+	std::cout << std::endl;
 	
-	cout << "Doctor ID: ";
-	cin >> patientAttendingStaffID;
-	cout << endl;
+	std::cout << "Doctor ID: ";
+	std::cin >> patientAttendingStaffID;
+	std::cout << std::endl;
 
 	patientObject[patientIndex].setAttendingID(patientAttendingStaffID);
 
 	while (!doesStaffMemberExist(staffObject, patientObject[patientIndex].getAttendingID(), numOfStaff)) {
-		cout << "There is no doctor with that ID. Please enter the ID of an existing doctor: ";
-		cin >> patientAttendingStaffID;
-		cout << endl;
+		std::cout << "There is no doctor with that ID. Please enter the ID of an existing doctor: ";
+		std::cin >> patientAttendingStaffID;
+		std::cout << std::endl;
 		patientObject[patientIndex].setAttendingID(patientAttendingStaffID);
 		
 	}
 
 	char gender;
 
-	cout << "Gender(M or F): ";
-	cin >> gender;
-	cout << endl;
+	std::cout << "Gender(M or F): ";
+	std::cin >> gender;
+	std::cout << std::endl;
 
-	cout << "Phone Number: ";
-	cin >> newPatientContact.phoneNo;
-	cout << endl;
+	std::cout << "Phone Number: ";
+	std::cin >> newPatientContact.phoneNo;
+	std::cout << std::endl;
 
-	cout << "E-mail: ";
-	cin >> newPatientContact.email;
-	cout << endl;
+	std::cout << "E-mail: ";
+	std::cin >> newPatientContact.email;
+	std::cout << std::endl;
 
 	int bDay, bMonth, bYear;
 
-	cout << "Birth Date(month day year) seperated by spaces: ";
-	cin >> bMonth >> bDay >> bYear;
-	cout << endl;
+	std::cout << "Birth Date(month day year) seperated by spaces: ";
+	std::cin >> bMonth >> bDay >> bYear;
+	std::cout << std::endl;
 
-	cout << "Address Number: ";
-	cin >> newPatientContact.patientAddress.addNo;
-	cout << endl;
+	std::cout << "Address Number: ";
+	std::cin >> newPatientContact.patientAddress.addNo;
+	std::cout << std::endl;
 
-	cout << "Street Name: ";
-	cin.ignore();
-	getline(cin, newPatientContact.patientAddress.streetName);
-	cout << endl;
+	std::cout << "Street Name: ";
+	std::cin.ignore();
+	getline(std::cin, newPatientContact.patientAddress.streetName);
+	std::cout << std::endl;
 
-	cout << "City Name: ";
-	getline(cin, newPatientContact.patientAddress.cityName);
-	cout << endl;
+	std::cout << "City Name: ";
+	getline(std::cin, newPatientContact.patientAddress.cityName);
+	std::cout << std::endl;
 
-	cout << "State Initials: ";
-	getline(cin, newPatientContact.patientAddress.stateName);
-	cout << endl;
+	std::cout << "State Initials: ";
+	getline(std::cin, newPatientContact.patientAddress.stateName);
+	std::cout << std::endl;
 
-	cout << "Zip Code: ";
-	cin >> newPatientContact.patientAddress.zipCode;
-	cout << endl;
+	std::cout << "Zip Code: ";
+	std::cin >> newPatientContact.patientAddress.zipCode;
+	std::cout << std::endl;
 	
 	patientObject[patientIndex].setGender(gender);
 	patientObject[patientIndex].setFirstName(fName);
@@ -832,24 +831,24 @@ bool searchPatient(Patient patientObject[], int numOfPatients, int &foundIndex, 
 	return found;
 }
 
-void printAllDepartmentsToFile(Department departmentObject[], int numOfDepartments, ofstream& outFile) {
+void printAllDepartmentsToFile(Department departmentObject[], int numOfDepartments, std::ofstream& outFile) {
 	for (int i = 0; i < numOfDepartments; i++) {
 		departmentObject[i].printToFile(outFile);
-		outFile << endl;
+		outFile << std::endl;
 	}
 }
 
-void printAllStaffToFile(Staff staffObject[], int numOfStaff, ofstream& outFile) {
+void printAllStaffToFile(Staff staffObject[], int numOfStaff, std::ofstream& outFile) {
 	for (int i = 0; i < numOfStaff; i++) {
 		staffObject[i].printToFile(outFile);
-		outFile << endl;
+		outFile << std::endl;
 	}
 }
 
-void printAllPatientsToFile(Patient patientObject[], int numOfPatients, ofstream& outFile) {
+void printAllPatientsToFile(Patient patientObject[], int numOfPatients, std::ofstream& outFile) {
 	for (int i = 0; i < numOfPatients; i++) {
 		patientObject[i].printToFile(outFile);
-		outFile << endl;
+		outFile << std::endl;
 	}
 }
 
@@ -919,41 +918,41 @@ void editDepartment(Department departmentObject[], int numOfDepts, int searchID)
 
 	if (foundDepartment) {
 		int deptChoice;
-		string newName = "";
+		std::string newName = "";
 		int newID = 0;
 
-		cout << "Select the option that corresponds to what you want to edit about this department:" << endl;
-		cout << "1) Department Name" << endl << "2) Department ID" << endl;
-		cin >> deptChoice;
-		cout << endl;
+		std::cout << "Select the option that corresponds to what you want to edit about this department:" << std::endl;
+		std::cout << "1) Department Name" << std::endl << "2) Department ID" << std::endl;
+		std::cin >> deptChoice;
+		std::cout << std::endl;
 
 		switch (deptChoice) {
 		case 1:
 			
-			cout << "Enter the new name for this department: ";
-			cin >> newName;
-			cout << endl;
+			std::cout << "Enter the new name for this department: ";
+			std::cin >> newName;
+			std::cout << std::endl;
 
 			departmentObject[departmentIndex].setDeptName(newName);
 			break;
 
 		case 2:
 
-			cout << "Enter the new ID number for this department: ";
-			cin >> newID;
-			cout << endl;
+			std::cout << "Enter the new ID number for this department: ";
+			std::cin >> newID;
+			std::cout << std::endl;
 
 			departmentObject[departmentIndex].setDeptID(newID);
 			break;
 
 		default:
-			cout << "Invalid Selection." << endl;
+			std::cout << "Invalid Selection." << std::endl;
 		}
 
 	}
 
 	else {
-		cout << "Department does not exist." << endl;
+		std::cout << "Department does not exist." << std::endl;
 	}
 }
 
@@ -964,60 +963,60 @@ void editStaffMember(Staff staffObject[], int numOfStaff, int searchID, Departme
 
 	if (foundStaffMember) {
 		int staffChoice;
-		string newInfo = "";
+		std::string newInfo = "";
 		int newID = 0;
 		int day = 1, month = 1, year = 1;
 		char newIdentifier = ' ';
 
-		cout << "Select the option that corresponds to the information you want to edit" << endl;
-		cout << "1) First Name" << endl << "2) Last Name" << endl << "3) Staff ID" << endl << "4) Staff Type"
-			<< endl << "5) Gender" << endl << "6) Birthday" << endl << "7) Phone Number" << endl
-			<< "8) E-mail" << endl << "9) Department ID" << endl;
-		cin >> staffChoice;
-		cout << endl;
+		std::cout << "Select the option that corresponds to the information you want to edit" << std::endl;
+		std::cout << "1) First Name" << std::endl << "2) Last Name" << std::endl << "3) Staff ID" << std::endl << "4) Staff Type"
+			<< std::endl << "5) Gender" << std::endl << "6) Birthday" << std::endl << "7) Phone Number" << std::endl
+			<< "8) E-mail" << std::endl << "9) Department ID" << std::endl;
+		std::cin >> staffChoice;
+		std::cout << std::endl;
 		switch(staffChoice){
 		case 1:
-			cout << "Enter the first name of this staff member: ";
-			cin >> newInfo;
-			cout << endl;
+			std::cout << "Enter the first name of this staff member: ";
+			std::cin >> newInfo;
+			std::cout << std::endl;
 
 			staffObject[staffIndex].setFirstName(newInfo);
 			break;
 
 		case 2:
-			cout << "Enter the last name of this staff member: ";
-			cin >> newInfo;
-			cout << endl;
+			std::cout << "Enter the last name of this staff member: ";
+			std::cin >> newInfo;
+			std::cout << std::endl;
 
 			staffObject[staffIndex].setLastName(newInfo);
 			break;
 		case 3:
-			cout << "Enter new Staff ID: ";
-			cin >> newID;
-			cout << endl;
+			std::cout << "Enter new Staff ID: ";
+			std::cin >> newID;
+			std::cout << std::endl;
 
 			staffObject[staffIndex].setStaffID(newID);
 			break;
 		case 4:
-			cout << "Enter A if the staff member is an administrator, N if the staff member is a nurse or D if the staff member is a doctor: ";
-			cin >> newIdentifier;
-			cout << endl;
+			std::cout << "Enter A if the staff member is an administrator, N if the staff member is a nurse or D if the staff member is a doctor: ";
+			std::cin >> newIdentifier;
+			std::cout << std::endl;
 
 			staffObject[staffIndex].setStaffType(newIdentifier);
 			break;
 
 		case 5:
-			cout << "Enter M if the staff member is a male or enter F if the staff member is a female: ";
-			cin >> newIdentifier;
-			cout << endl;
+			std::cout << "Enter M if the staff member is a male or enter F if the staff member is a female: ";
+			std::cin >> newIdentifier;
+			std::cout << std::endl;
 
 			staffObject[staffIndex].setGender(newIdentifier);
 			break;
 
 		case 6:
-			cout << "Enter the birthday (month day year) of the staff member, be sure to seperate each number with a space: ";
-			cin >> month >> day >> year;
-			cout << endl;
+			std::cout << "Enter the birthday (month day year) of the staff member, be sure to seperate each number with a space: ";
+			std::cin >> month >> day >> year;
+			std::cout << std::endl;
 
 			staffObject[staffIndex].setBirthMonth(month);
 			staffObject[staffIndex].setBirthDay(day);
@@ -1025,47 +1024,47 @@ void editStaffMember(Staff staffObject[], int numOfStaff, int searchID, Departme
 			break;
 
 		case 7: {
-			cout << "How many phone numbers would you like to store for this staff member?: ";
+			std::cout << "How many phone numbers would you like to store for this staff member?: ";
 			int staffPhoneNumAm;
-			cin >> staffPhoneNumAm;
+			std::cin >> staffPhoneNumAm;
 
 			staffObject[staffIndex].staffContact.setNumofPhones(staffPhoneNumAm);
 
-			cin.ignore();
+			std::cin.ignore();
 
 			for (int i = 0; i < staffPhoneNumAm; i++) {
 				if (i == 0)
-					cout << "Enter new phone number: ";
+					std::cout << "Enter new phone number: ";
 				else
-					cout << "Enter phone number #" << i + 1 << ": ";
+					std::cout << "Enter phone number #" << i + 1 << ": ";
 				
-				getline(cin, newInfo);
-				cout << endl;
+				getline(std::cin, newInfo);
+				std::cout << std::endl;
 
 				staffObject[staffIndex].staffContact.setANumber(newInfo, i);
 			}
 			break;
 		}
 		case 8: {
-			cout << "How many E-mails would you like to store for this staff member?: ";
+			std::cout << "How many E-mails would you like to store for this staff member?: ";
 			int newEmailNum;
-			cin >> newEmailNum;
-			cout << endl;
+			std::cin >> newEmailNum;
+			std::cout << std::endl;
 			staffObject[staffIndex].staffContact.setNumOfEmail(newEmailNum);
 
-			cin.ignore();
+			std::cin.ignore();
 
 			for (int i = 0; i < newEmailNum; i++) {
 				
 				if (i == 0)
-					cout << "Enter E-mail: ";
+					std::cout << "Enter E-mail: ";
 
 				else
-					cout << "Enter E-mail #" << i + 1 << ": ";
+					std::cout << "Enter E-mail #" << i + 1 << ": ";
 				
 				
-				getline(cin, newInfo);
-				cout << endl;
+				getline(std::cin, newInfo);
+				std::cout << std::endl;
 
 				staffObject[staffIndex].staffContact.setAnEmail(newInfo, i);
 			}
@@ -1073,12 +1072,12 @@ void editStaffMember(Staff staffObject[], int numOfStaff, int searchID, Departme
 		}
 		case 9: {
 			int tempDeptID;
-			cout << "Enter Department ID: ";
-			cin >> tempDeptID;
+			std::cout << "Enter Department ID: ";
+			std::cin >> tempDeptID;
 			while (!doesDeptIdExist(deptObject, tempDeptID, numOfDepartments)) {
-				cout << "That department does not exist.\nPlease enter an existing department: ";
-				cin >> tempDeptID;
-				cout << endl;
+				std::cout << "That department does not exist.\nPlease enter an existing department: ";
+				std::cin >> tempDeptID;
+				std::cout << std::endl;
 			}
 			staffObject[staffIndex].staffDept.setDeptID(tempDeptID);
 			break;
@@ -1086,14 +1085,14 @@ void editStaffMember(Staff staffObject[], int numOfStaff, int searchID, Departme
 
 			
 		default:
-			cout << "Invalid Selection." << endl;
+			std::cout << "Invalid Selection." << std::endl;
 		}
 
 		
 
 	}
 	else {
-		cout << "Staff member not found." << endl;
+		std::cout << "Staff member not found." << std::endl;
 	}
 }
 
@@ -1104,121 +1103,121 @@ void editPatient(Patient patientObject[], int numOfPatients, int searchID, Staff
 
 	if (foundPatient){
 		int patientChoice;
-		string newInfo = "";
-		string newStreet = "", newCity = "", newState = "";
+		std::string newInfo = "";
+		std::string newStreet = "", newCity = "", newState = "";
 		int newHouse = 0, newZip = 0;
 		PatientContactInfo newPatientContact;
 		char newIdentifier = ' ';
 		int day = 1, month = 1, year = 1;
 		int newID = 0;
-		cout << "Select the option that corresponds to the information you want to edit" << endl;
-		cout << "1) First Name" << endl << "2) Last Name" << endl << "3) Patient ID" << endl << "4) Home Address"
-			<< endl << "5) Gender" << endl << "6) Birthday" << endl << "7) Phone Number" << endl
-			<< "8) E-mail" << endl << "9) Doctor ID" << endl;
-		cin >> patientChoice;
-		cout << endl;
+		std::cout << "Select the option that corresponds to the information you want to edit" << std::endl;
+		std::cout << "1) First Name" << std::endl << "2) Last Name" << std::endl << "3) Patient ID" << std::endl << "4) Home Address"
+			<< std::endl << "5) Gender" << std::endl << "6) Birthday" << std::endl << "7) Phone Number" << std::endl
+			<< "8) E-mail" << std::endl << "9) Doctor ID" << std::endl;
+		std::cin >> patientChoice;
+		std::cout << std::endl;
 
 		switch (patientChoice) {
 		case 1:
-			cout << "Enter the patient's first name: ";
-			cin >> newInfo;
-			cout << endl;
+			std::cout << "Enter the patient's first name: ";
+			std::cin >> newInfo;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setFirstName(newInfo);
 			break;
 
 		case 2:
-			cout << "Enter the patient's last name: ";
-			cin >> newInfo;
-			cout << endl;
+			std::cout << "Enter the patient's last name: ";
+			std::cin >> newInfo;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setLastName(newInfo);
 			break;
 		case 3:
-			cout << "Enter the patient's new ID number: ";
-			cin >> newID;
-			cout << endl;
+			std::cout << "Enter the patient's new ID number: ";
+			std::cin >> newID;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setID(newID);
 			break;
 		case 4:
-			cout << "Enter the following information regarding the patient's home address: " << endl;
+			std::cout << "Enter the following information regarding the patient's home address: " << std::endl;
 
-			cout << "House Number: ";
-			cin >> newHouse;
-			cout << endl;
+			std::cout << "House Number: ";
+			std::cin >> newHouse;
+			std::cout << std::endl;
 
-			cout << "Street Name: ";
-			cin.ignore();
-			getline(cin, newStreet);
-			cout << endl;
+			std::cout << "Street Name: ";
+			std::cin.ignore();
+			getline(std::cin, newStreet);
+			std::cout << std::endl;
 
-			cout << "City Name: ";
-			getline(cin, newCity);
-			cout << endl;
+			std::cout << "City Name: ";
+			getline(std::cin, newCity);
+			std::cout << std::endl;
 
-			cout << "State Initials: ";
-			getline(cin, newState);
-			cout << endl;
+			std::cout << "State Initials: ";
+			getline(std::cin, newState);
+			std::cout << std::endl;
 
-			cout << "Zip code: ";
-			cin >> newZip;
-			cout << endl;
+			std::cout << "Zip code: ";
+			std::cin >> newZip;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setAddress(newHouse, newStreet, newCity, newState, newZip);
 			break;
 			
 		case 5:
-			cout << "Enter the patient's gender(M for male or F for female): ";
-			cin >> newIdentifier;
-			cout << endl;
+			std::cout << "Enter the patient's gender(M for male or F for female): ";
+			std::cin >> newIdentifier;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setGender(newIdentifier);
 			break;
 		case 6:
-			cout << "Enter the birthday (month day year) of the patient, be sure to seperate each number with a space: ";
-			cin >> month >> day >> year;
-			cout << endl;
+			std::cout << "Enter the birthday (month day year) of the patient, be sure to seperate each number with a space: ";
+			std::cin >> month >> day >> year;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setBirthDay(day);
 			patientObject[patientIndex].setBirthMonth(month);
 			patientObject[patientIndex].setBirthYear(year);
 			break;
 		case 7:
-			cout << "Enter the patient's phone number: ";
-			cin >> newInfo;
-			cout << endl;
+			std::cout << "Enter the patient's phone number: ";
+			std::cin >> newInfo;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setPhoneNum(newInfo);
 			break;
 		case 8:
-			cout << "Enter the patient's E-mail: ";
-			cin >> newInfo;
-			cout << endl;
+			std::cout << "Enter the patient's E-mail: ";
+			std::cin >> newInfo;
+			std::cout << std::endl;
 
 			patientObject[patientIndex].setEmail(newInfo);
 			break;
 		case 9: {
 			int tempStaffID;
-			cout << "Enter the ID of the Attending Doctor: ";
-			cin >> tempStaffID;
-			cout << endl;
+			std::cout << "Enter the ID of the Attending Doctor: ";
+			std::cin >> tempStaffID;
+			std::cout << std::endl;
 
 			while(!doesStaffMemberExist(staffObject, tempStaffID, numOfStaff)){
-				cout << "There is no Doctor with that ID.\nPlease enter the ID of the Attending Doctor: ";
-				cin >> tempStaffID;
-				cout << endl;
+				std::cout << "There is no Doctor with that ID.\nPlease enter the ID of the Attending Doctor: ";
+				std::cin >> tempStaffID;
+				std::cout << std::endl;
 			}
 			patientObject[patientIndex].setAttendingID(tempStaffID);
 			break;
 		}
 		default:
-			cout << "Invalid Selection." << endl;
+			std::cout << "Invalid Selection." << std::endl;
 		}
 	}
 
 	else {
-		cout << "Patient not found." << endl;
+		std::cout << "Patient not found." << std::endl;
 	}
 }
 
@@ -1226,8 +1225,8 @@ StaffContactInfo::StaffContactInfo(int thePhone, int theEmail) {
 	emailAmount = theEmail;
 	phoneNoAmount = thePhone;
 	
-	email = new string[theEmail];
-	phoneNo = new string[thePhone];
+	email = new std::string[theEmail];
+	phoneNo = new std::string[thePhone];
 }
 
 StaffContactInfo::~StaffContactInfo() {
@@ -1237,19 +1236,19 @@ StaffContactInfo::~StaffContactInfo() {
 
 void StaffContactInfo::setNumOfEmail(int numOfEmail) {
 	emailAmount = numOfEmail;
-	email = new string[numOfEmail];
+	email = new std::string[numOfEmail];
 }
 
 void StaffContactInfo::setNumofPhones(int phoneNumbers) {
 	phoneNoAmount = phoneNumbers;
-	phoneNo = new string[phoneNumbers];
+	phoneNo = new std::string[phoneNumbers];
 }
 
 int StaffContactInfo::getPhoneNoAmount() const {
 	return phoneNoAmount;
 }
 
-void StaffContactInfo::setANumber(string newPNum, int phoneIndex) {
+void StaffContactInfo::setANumber(std::string newPNum, int phoneIndex) {
 	phoneNo[phoneIndex] = newPNum;
 }
 
@@ -1257,20 +1256,20 @@ int StaffContactInfo::getEmailAmount()  const{
 	return emailAmount;
 }
 
-void StaffContactInfo::setAnEmail(string newEmail, int emailIndex) {
+void StaffContactInfo::setAnEmail(std::string newEmail, int emailIndex) {
 	email[emailIndex] = newEmail;
 }
 
 StaffContactInfo::StaffContactInfo(const StaffContactInfo& otherObject) {
 	emailAmount = otherObject.emailAmount;
 	phoneNoAmount = otherObject.phoneNoAmount;
-	phoneNo = new string[phoneNoAmount];
+	phoneNo = new std::string[phoneNoAmount];
 
 	for (int i = 0; i < phoneNoAmount; i++) {
 		phoneNo[i] = otherObject.phoneNo[i];
 	}
 
-	email = new string[emailAmount];
+	email = new std::string[emailAmount];
 
 	for (int i = 0; i < emailAmount; i++) {
 		email[i] = otherObject.email[i];
@@ -1284,8 +1283,8 @@ const StaffContactInfo& StaffContactInfo::operator= (const StaffContactInfo& myO
 		emailAmount = myObject.emailAmount;
 		phoneNoAmount = myObject.phoneNoAmount;
 
-		email = new string[emailAmount];
-		phoneNo = new string[phoneNoAmount];
+		email = new std::string[emailAmount];
+		phoneNo = new std::string[phoneNoAmount];
 
 		for (int i = 0; i < emailAmount; i++)
 			email[i] = myObject.email[i];
@@ -1304,7 +1303,7 @@ int Patient::getAttendingID() const {
 	return attendingStaffID;
 }
 
-Person::Person(char pGender, int pBmonth, int pBday, int pByear, string pfName, string plName) {
+Person::Person(char pGender, int pBmonth, int pBday, int pByear, std::string pfName, std::string plName) {
 	gender = pGender;
 	birthD.day = pBday;
 	birthD.month = pBmonth;
@@ -1313,7 +1312,7 @@ Person::Person(char pGender, int pBmonth, int pBday, int pByear, string pfName, 
 	lastName = plName;
 }
 
-void outFileOperations(ofstream& outFile1, ofstream& outFile2, ofstream& outFile3, Department dList[], Staff sList[], Patient pList[], int deptNum, int staffNum, int patNum) {
+void outFileOperations(std::ofstream& outFile1, std::ofstream& outFile2, std::ofstream& outFile3, Department dList[], Staff sList[], Patient pList[], int deptNum, int staffNum, int patNum) {
 	outFile1.open("updated_departments.txt");
 	outFile2.open("updated_staff.txt");
 	outFile3.open("updated_patients.txt");
@@ -1328,13 +1327,13 @@ void outFileOperations(ofstream& outFile1, ofstream& outFile2, ofstream& outFile
 	outFile3.close();
 }
 
-void inFileOperations(ifstream& dInFile, ifstream& sInFile, ifstream& pInFile, Department dList[], Staff sList[], Patient pList[], int& deptNum, int& staffNum, int& patNum, int maximum) {
+void inFileOperations(std::ifstream& dInFile, std::ifstream& sInFile, std::ifstream& pInFile, Department dList[], Staff sList[], Patient pList[], int& deptNum, int& staffNum, int& patNum, int maximum) {
 	dInFile.open("departments.txt");
 	sInFile.open("staff.txt");
 	pInFile.open("patients.txt");
 
 	while (dInFile.good()) {
-		if (dInFile.peek() == ifstream::traits_type::eof())
+		if (dInFile.peek() == std::ifstream::traits_type::eof())
 			break;
 		if (deptNum >= maximum)
 			break;
@@ -1343,7 +1342,7 @@ void inFileOperations(ifstream& dInFile, ifstream& sInFile, ifstream& pInFile, D
 	}
 
 	while (sInFile.good()) {
-		if (sInFile.peek() == ifstream::traits_type::eof())
+		if (sInFile.peek() == std::ifstream::traits_type::eof())
 			break;
 		if (staffNum >= maximum)
 			break;
@@ -1352,7 +1351,7 @@ void inFileOperations(ifstream& dInFile, ifstream& sInFile, ifstream& pInFile, D
 	}
 
 	while (pInFile.good()) {
-		if (pInFile.peek() == ifstream::traits_type::eof())
+		if (pInFile.peek() == std::ifstream::traits_type::eof())
 			break;
 		if (patNum >= maximum)
 			break;
